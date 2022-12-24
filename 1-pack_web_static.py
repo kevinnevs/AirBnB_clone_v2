@@ -3,9 +3,9 @@
 Fabric script that generates a .tgz archivefrom the contents of web_static
 folder of AirBnB clone repo, using function do-pack
 """
-
 from datetime import datetime
 from fabric.api import local
+
 
 def do_pack():
     """try loop definition of function"""
