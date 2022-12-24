@@ -11,9 +11,9 @@ def do_pack():
     """try loop definition of function"""
     timenow = strftime("%Y%m%d%H%M%S")
     try:
-       local('mkdir -p versions')
-       file_name = "versions/web_static_{}.tgz".format(timenow)
-       local("tar -cvzf {} web_static/".format(file_name))
-       return file_name
+        local('mkdir -p versions')
+        file_name = "versions/web_static_{}.tgz".format(timenow)
+        local("tar -cvzf {} web_static/".format(file_name))
+        return file_name
     except:
-       return None
+        return None
