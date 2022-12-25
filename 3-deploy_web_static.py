@@ -3,7 +3,7 @@
 Fabric script (based on 2-do_deploy_web_static.py) that creates
 and distributes an archive to web servers using function deploy
 """
-from fabric.api import *
+from fabric.api import local, env, put, run
 from time import strftime
 import os.path
 
