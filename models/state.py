@@ -4,29 +4,34 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from os import environ
-import models
 
 
 class State(BaseModel, Base):
     """ Class attributes"""
     __tablename__ = "states"
 
-    if environ("HBNB_TYPE_STORAGE") == "db":
+    if environ['HBNB_TYPE_STORAGE'] == 'db':
         name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state",
-                              cascade="all, delete, delete-orphan")
+        cities = relationship('City', cascade='all, delete', backref='state')
     else:
         name = ""
 
         @property
         def cities(self):
-            '''
-                Return list of city instances if City.state_id==current
-                State.id
-                FileStorage relationship between State and City
-            '''
-            list_cities = []
-            for city in models.storage.all("City").values():
+            """
+            getter attribute cities that returns list of City instances
+            with state_id equals to the current State.id -> it will be
+            the FileStorage relationship between State and City
+            """
+            from models import storage
+            from models.city import City
+            """returns list of City objs in __objects"""
+            cities_dict = storage.all(City)
+            cities_list = []
+
+            """copy values from dict to list"""
+            for city in cities_dict.values():
                 if city.state_id == self.id:
-                    list_cities.append(city)
-            return list_cities
+                    cities_list.append(city)
+
+            return cities_list
