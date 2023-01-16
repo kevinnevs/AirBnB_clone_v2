@@ -18,6 +18,7 @@ all_classes = {'State': State, 'City': City,
                'User': User, 'Place': Place,
                'Review': Review, 'Amenity': Amenity}
 
+
 class DBStorage:
     """
     This class manages MySQL storage using SQLAlchemy
@@ -28,7 +29,6 @@ class DBStorage:
     """
     __engine = None
     __session = None
-
     
     def __init__(self):
         """Create SQLAlchemy engine"""
@@ -58,7 +58,7 @@ class DBStorage:
                                      format(type(row).__name__, row.id,): row})
         return obj_dict
 
-    def new(self,obj):
+    def new(self, obj):
         """Add object to current database session"""
         self.__session.add(obj)
 
