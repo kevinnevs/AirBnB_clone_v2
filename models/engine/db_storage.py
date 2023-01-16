@@ -29,6 +29,7 @@ class DBStorage:
     __engine = None
     __session = None
 
+    
     def __init__(self):
         """Create SQLAlchemy engine"""
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'.
