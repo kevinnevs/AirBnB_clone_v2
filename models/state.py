@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from os import environ
+import models
 
 
 class State(BaseModel, Base):
@@ -18,20 +19,13 @@ class State(BaseModel, Base):
 
         @property
         def cities(self):
-            """
-            getter attribute cities that returns list of City instances
-            with state_id equals to the current State.id -> it will be
-            the FileStorage relationship between State and City
-            """
-            from models import storage
-            from models.city import City
-            """returns list of City objs in __objects"""
-            cities_dict = storage.all(City)
-            cities_list = []
-
-            """copy values from dict to list"""
-            for city in cities_dict.values():
+            '''
+                Return list of city instances if City.state_id==current
+                State.id
+                FileStorage relationship between State and City
+            '''
+            list_cities = []
+            for city in models.storage.all("City").values():
                 if city.state_id == self.id:
-                    cities_list.append(city)
-
-            return cities_list
+                    list_cities.append(city)
+            return list_cities
